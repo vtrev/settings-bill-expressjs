@@ -38,17 +38,27 @@ app.get('actions/:type', function (res, req) {
 
 
 // POST ROUTES
+<<<<<<< HEAD
 app.post('/settings', function (req, res) {
     let settings = {
         callTotalSettings: 0.00,
         smsTotalSettings: 0.00,
         totalSettings: 0.00
     };
+=======
+let settings = {};
+app.post('/settings', function (req, res) {
+
+>>>>>>> a2f34163987141f4f80adac8be3d9d7a49de3a37
     settings.smsCost = req.body.smsCost;
     settings.callCost = req.body.callCost;
     settings.warningLevel = req.body.warningLevel;
     settings.criticalLevel = req.body.criticalLevel;
+<<<<<<< HEAD
     //let the post requests do what the dom did
+=======
+
+>>>>>>> a2f34163987141f4f80adac8be3d9d7a49de3a37
     // var settings = {
     //     smsCost,
     //     callCost,
@@ -62,7 +72,10 @@ app.post('/settings', function (req, res) {
 
 app.post('/action', function (req, res) {
     let billType = req.body.billItemType;
+<<<<<<< HEAD
 
+=======
+>>>>>>> a2f34163987141f4f80adac8be3d9d7a49de3a37
     let setBill = settingsBillFactory(settings);
     setBill.compute(billType);
     // console.log(settings);
@@ -79,6 +92,19 @@ app.post('/action', function (req, res) {
 
 
 
+<<<<<<< HEAD
+=======
+
+
+
+
+
+
+
+
+
+
+>>>>>>> a2f34163987141f4f80adac8be3d9d7a49de3a37
 // SERVER START
 
 let PORT = process.env.PORT || 3000;
