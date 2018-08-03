@@ -1,78 +1,87 @@
-module.exports = function (billSet) {
-    let callSet = parseFloat(billSet.callCost);
-    let smsSet = parseFloat(billSet.smsCost);
-    let warnSet = parseFloat(billSet.warningLevel);
-    let criticSet = parseFloat(billSet.criticalLevel);
+module.exports = function () {
+    //sms and call totals init 
+    var smsSetTotal = 0;
+    var callSetTotal = 0;
 
+    //the bill object which will store the settings from the dom
+    var bill = {
+        'call': 0,
+        'sms': 0,
+        'warning': 0,
+        'critical': 0
 
-    let totals = {
-        call: 0,
-        sms: 0
+    }
+
+    //get values from the HTML form and set them into the bill object
+    var getCall = function (callSetting) {
+        bill['call'] = parseFloat(callSetting);
+    }
+
+    function getSms(smsSetting) {
+        bill['sms'] = parseFloat(smsSetting);
+    }
+
+    function getWarning(warnSetting) {
+        bill['warning'] = parseFloat(warnSetting);
+    }
+
+    function getCritical(criticalSetting) {
+
+        bill['critical'] = parseFloat(criticalSetting);
     }
 
 
-    let smsSetTotal = totals.sms;
-    let callSetTotal = totals.call;
-
-    let smsSetTotal = 0;
-    let callSetTotal = 0;
-    //get the totals and return them
-
-    let getSmsTotal = function () {
-        return smsSetTotal
-    }
-    let getCallTotal = function () {
-        return callSetTotal
-    }
-    let getTotal = function () {
-        return getSmsTotal() + getCallTotal()
-    }
     //compute call or sms bill given the settings above
 
-    function compute(billType) {
+    function computeSettings(checkedRadioBtn1) {
 
+        if (checkedRadioBtn1 === 'call') {
 
-        if (billType === 'call') {
-
-            (getTotal() < billSet.criticalLevel) ? totals.call += callSet: console.log('over the line mark Zero!');
-            if (billType === 'call') {
-
-                (getTotal() < billSet.criticalLevel) ? callSetTotal += billSet.callCost: console.log('over the line mark Zero!');
-            }
-
-            if (billType === 'sms') {
-
-                (getTotal() < billSet.criticalLevel) ? smsSetTotal += smsSet: console.log('over the line mark Zero!');
-            }
+            (getTotal() < bill.critical) ? callSetTotal += bill.call: console.log('over the line mark Zero!');
 
         }
 
-        //get the totals and return them
+        if (checkedRadioBtn1 === 'sms') {
 
-        let getSmsTotal = function () {
-            return smsSetTotal
+            (getTotal() < bill.critical) ? smsSetTotal += bill.sms: console.log('over the line mark Zero!');
         }
-        let getCallTotal = function () {
-            return callSetTotal
-        }
-        let getTotal = function () {
-            return getSmsTotal() + getCallTotal()
-        }
+        console.log('sms total : ' + smsSetTotal);
 
-
-        console.log(callSetTotal, smsSetTotal);
-        console.log(smsSetTotal);
     }
 
+    //get the totals and return them
+    let getSetWarning = function () {
+        return bill.warning;
+    };
+    let getSetCritical = function () {
+        return bill.critical;
+    }
 
-}
-console.log('SMS TOTAL : ' + smsSetTotal, 'CALL TOTAL : ' + callSetTotal);
+    var getSmsTotal = function () {
+        return smsSetTotal;
+    }
+    var getCallTotal = function () {
+        return callSetTotal;
+    }
+    var getTotal = function () {
+        return getSmsTotal() + getCallTotal()
+    }
 
+    return {
 
+        setCall: getCall,
+        setSms: getSms,
+        getWarning: getSetWarning,
+        getCritical: getSetCritical,
+        setWarning: getWarning,
+        setCritical: getCritical,
+        compute: computeSettings,
+        total: getTotal,
+        getSms: getSmsTotal,
+        getCall: getCallTotal,
+        bill: bill
 
-return {
-    compute
-}
+    }
 
 
 }

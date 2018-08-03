@@ -22,7 +22,7 @@
                         <a href="/actions/calls">Call total</a>
                     </td>
                     <td>R
-                        <span class="callTotalSettings">{{settings.callTotalSettings}}</span>
+                        <span class="callTotalSettings">{{this.totals.call}}</span>
                     </td>
                 </tr>
                 <tr>
@@ -30,7 +30,7 @@
                         <a href="/actions/sms">SMS total</a>
                     </td>
                     <td>R
-                        <span class="smsTotalSettings">{{settings.smsTotalSettings}}</span>
+                        <span class="smsTotalSettings">{{this.totals.sms}}</span>
                     </td>
                 </tr>
                 <tr>
@@ -38,7 +38,7 @@
                         <a href="/actions">Total</a>
                     </td>
                     <td> R
-                        <span class="totalSettings">{{settings.totalSettings}}</span>
+                        <span class="totalSettings {{this.totals.class}}">{{this.totals.billTotal}}</span>
                     </td>
                 </tr>
             </table>
@@ -49,14 +49,14 @@
             <form method="POST" action="/settings">
 
                 <label for="exampleEmailInput">Call cost</label>
-                <input class="u-full-width callCostSetting" type="number" placeholder="eg. 2.55" name="callCost" value={{settings.callCost}}>
+                <input class="u-full-width callCostSetting" type="number" placeholder="eg. 2.55" name="callCost" value={{this.settings.call}}>
                 <label for="exampleEmailInput">SMS cost</label>
-                <input class="u-full-width smsCostSetting" type="number" placeholder="eg. 0.65" name="smsCost" value={{settings.smsCost}}>
+                <input class="u-full-width smsCostSetting" type="number" placeholder="eg. 0.65" name="smsCost" value={{this.settings.sms}}>
                 <label for="">Warning level</label>
                 <input class="u-full-width warningLevelSetting " type="number" placeholder="eg. 30.00" class="warningLevel" name="warningLevel"
-                    value={{settings.warningLevel}}>
+                    value={{this.settings.warning}}>
                 <label for="">Critical level</label>
-                <input class="u-full-width criticalLevelSetting" type="number" placeholder="eg. 65.00" name="criticalLevel" value={{settings.criticalLevel}}>
+                <input class="u-full-width criticalLevelSetting" type="number" placeholder="eg. 65.00" name="criticalLevel" value={{this.settings.critical}}>
                 <button class="button-primary updateSettings" type="submit" name="button" value="submit">Update settings</button>
             </form>
 
