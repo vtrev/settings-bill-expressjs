@@ -3,50 +3,68 @@ module.exports = function () {
     var smsSetTotal = 0;
     var callSetTotal = 0;
 
-    //the bill object which will store the settings from the dom
+    //the bill object which will store the settings from the client side
     var bill = {
         'call': 0,
         'sms': 0,
         'warning': 0,
         'critical': 0
-
-    }
+    };
+    //Array of all call logs
+    let fullLog = [];
 
     //get values from the HTML form and set them into the bill object
     var getCall = function (callSetting) {
-        bill['call'] = parseFloat(callSetting);
+
+        bill.call = parseFloat(callSetting);
     }
 
     function getSms(smsSetting) {
-        bill['sms'] = parseFloat(smsSetting);
+        bill.sms = parseFloat(smsSetting);
+
     }
 
     function getWarning(warnSetting) {
-        bill['warning'] = parseFloat(warnSetting);
+        bill.warning = parseFloat(warnSetting);
     }
 
     function getCritical(criticalSetting) {
 
-        bill['critical'] = parseFloat(criticalSetting);
+        bill.critical = parseFloat(criticalSetting);
     }
 
+    function getLog(billType) {
+        if (billType) {
+            return fullLog.filter(action => action.type === billType);
+        } else {
+            return fullLog;
+        };
+    };
 
-    //compute call or sms bill given the settings above
 
-    function computeSettings(checkedRadioBtn1) {
+    //compute call or sms bill given the settings above and add a timestemp on the record
 
-        if (checkedRadioBtn1 === 'call') {
+    function computeSettings(checkedRadioBtn) {
+        let tmpLog = {
+            time: new Date(),
+            type: checkedRadioBtn
+        };
+
+
+        if (checkedRadioBtn === 'call') {
 
             (getTotal() < bill.critical) ? callSetTotal += bill.call: console.log('over the line mark Zero!');
+            tmpLog.cost = bill.call;
 
         }
 
-        if (checkedRadioBtn1 === 'sms') {
+        if (checkedRadioBtn === 'sms') {
 
             (getTotal() < bill.critical) ? smsSetTotal += bill.sms: console.log('over the line mark Zero!');
+            tmpLog.cost = bill.sms;
         }
-        console.log('sms total : ' + smsSetTotal);
 
+        fullLog.unshift(tmpLog);
     }
 
     //get the totals and return them
@@ -58,13 +76,15 @@ module.exports = function () {
     }
 
     var getSmsTotal = function () {
-        return smsSetTotal;
+        return smsSetTotal
     }
     var getCallTotal = function () {
-        return callSetTotal;
+        return callSetTotal
     }
     var getTotal = function () {
-        return getSmsTotal() + getCallTotal()
+        let sms = parseFloat(getSmsTotal());
+        let call = parseFloat(getCallTotal());
+        return (sms + call).toFixed(2);
     }
 
     return {
@@ -79,7 +99,8 @@ module.exports = function () {
         total: getTotal,
         getSms: getSmsTotal,
         getCall: getCallTotal,
-        bill: bill
+        bill: bill,
+        log: getLog
 
     }
 

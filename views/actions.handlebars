@@ -1,0 +1,24 @@
+<div class="container">
+
+    <div class="twelve columns">
+
+        <h2>Phone log</h2>
+        <table>
+            <tr>
+                <th>Type</th>
+                <th>Cost</th>
+                <th>Time</th>
+            </tr>
+            {{#each log}}
+            <tr>
+                <td>{{this.type}}</td>
+                <td>R {{this.cost}}</td>
+                <td>{{logTime}}</td>
+            </tr>
+            {{/each}}
+
+        </table>
+
+    </div>
+
+</div>

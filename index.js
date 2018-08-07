@@ -6,11 +6,17 @@ let express = require('express');
 let app = express();
 let fullPage = {};
 let exphbs = require('express-handlebars');
+let moment = require('moment');
 
 
 // SETTINGS
 app.engine('handlebars', exphbs({
-    defaultLayout: 'main'
+    defaultLayout: 'main',
+    helpers: {
+        'logTime': function () {
+            return moment(this.time).fromNow()
+        }
+    }
 }));
 
 app.set('view engine', 'handlebars');
@@ -26,23 +32,35 @@ app.use(bodyParser.urlencoded({
 app.get('/', function (req, res) {
     res.render('home');
 });
+app.get('/actions', function (req, res) {
+    let log = settingsBill.log();
+    res.render('actions', {
+        log
+    });
 
-
-app.get('/actions', function (res, req) {
 
 
 });
 
-app.get('actions/:type', function (res, req) {
+app.get('/actions/:type', function (req, res) {
+    let billType = req.params.type;
+    let log = settingsBill.log(billType);
+    res.render('actions', {
+        log
+    });
 
 });
+
+
+
+
 
 
 // POST ROUTES
 app.post('/settings', function (req, res) {
     //get the settings from the form && parse the settings into the logic
-    settingsBill.setCall(req.body.smsCost);
-    settingsBill.setSms(req.body.callCost);
+    settingsBill.setCall(req.body.callCost);
+    settingsBill.setSms(req.body.smsCost);
     settingsBill.setCritical(req.body.criticalLevel);
     settingsBill.setWarning(req.body.warningLevel);
     let settings = settingsBill.bill;
@@ -61,8 +79,6 @@ app.post('/action', function (req, res) {
     totals.call = settingsBill.getCall();
     totals.sms = settingsBill.getSms();
     totals.billTotal = settingsBill.total();
-    // console.log('bill total : ' + typeof (totals.billTotal));
-    console.log('warning level : ' + typeof (totals.class));
 
     if (totals.billTotal >= settingsBill.getWarning()) {
         totals.class = 'warning';
@@ -76,10 +92,12 @@ app.post('/action', function (req, res) {
 });
 
 
+
+
+
 // SERVER START
 
-let PORT = process.env.PORT || 3000;
-
+let PORT = process.env.PORT || 3001;
 app.listen(PORT, function () {
     console.log('starting bill-settings on port : ', PORT)
 });
