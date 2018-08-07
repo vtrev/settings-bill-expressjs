@@ -52,14 +52,14 @@ module.exports = function () {
         if (checkedRadioBtn === 'call') {
 
             (getTotal() < bill.critical) ? callSetTotal += parseFloat(bill.call): console.log('over the line mark Zero!');
-            tmpLog.cost = bill.call;
+            tmpLog.cost = bill.call.toFixed(2);
 
         }
 
         if (checkedRadioBtn === 'sms') {
 
             (getTotal() < bill.critical) ? smsSetTotal += parseFloat(bill.sms): console.log('over the line mark Zero!');
-            tmpLog.cost = bill.sms;
+            tmpLog.cost = bill.sms.toFixed(2);
         }
 
         fullLog.unshift(tmpLog);
