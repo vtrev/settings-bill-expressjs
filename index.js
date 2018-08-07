@@ -4,7 +4,14 @@ let settingsBillFactory = require('./settingsBillLogic');
 let settingsBill = settingsBillFactory();
 let express = require('express');
 let app = express();
-let fullPage = {};
+let fullPage = {
+    totals: {
+        call: 0.00,
+        sms: 0.00,
+        billTotal: 0.00
+
+    }
+};
 let exphbs = require('express-handlebars');
 let moment = require('moment');
 
@@ -30,7 +37,7 @@ app.use(bodyParser.urlencoded({
 // GET ROUTES
 
 app.get('/', function (req, res) {
-    res.render('home');
+    res.render('home', fullPage);
 });
 app.get('/actions', function (req, res) {
     let log = settingsBill.log();
@@ -65,7 +72,8 @@ app.post('/settings', function (req, res) {
     settingsBill.setWarning(req.body.warningLevel);
     let settings = settingsBill.bill;
     fullPage.settings = settings;
-    res.render('home', fullPage);
+    res.redirect('/');
+    // res.render('home', fullPage);
 });
 
 
@@ -88,7 +96,8 @@ app.post('/action', function (req, res) {
     }
 
     fullPage.totals = totals;
-    res.render('home', fullPage);
+    res.redirect('/');
+    // res.render('home', fullPage);
 });
 
 
