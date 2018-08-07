@@ -15,13 +15,11 @@ module.exports = function () {
 
     //get values from the HTML form and set them into the bill object
     var getCall = function (callSetting) {
-
         bill.call = parseFloat(callSetting);
     }
 
     function getSms(smsSetting) {
         bill.sms = parseFloat(smsSetting);
-
     }
 
     function getWarning(warnSetting) {
@@ -53,14 +51,14 @@ module.exports = function () {
 
         if (checkedRadioBtn === 'call') {
 
-            (getTotal() < bill.critical) ? callSetTotal += bill.call: console.log('over the line mark Zero!');
+            (getTotal() < bill.critical) ? callSetTotal += parseFloat(bill.call): console.log('over the line mark Zero!');
             tmpLog.cost = bill.call;
 
         }
 
         if (checkedRadioBtn === 'sms') {
 
-            (getTotal() < bill.critical) ? smsSetTotal += bill.sms: console.log('over the line mark Zero!');
+            (getTotal() < bill.critical) ? smsSetTotal += parseFloat(bill.sms): console.log('over the line mark Zero!');
             tmpLog.cost = bill.sms;
         }
 
@@ -76,10 +74,10 @@ module.exports = function () {
     }
 
     var getSmsTotal = function () {
-        return smsSetTotal
+        return smsSetTotal.toFixed(2);
     }
     var getCallTotal = function () {
-        return callSetTotal
+        return callSetTotal.toFixed(2);
     }
     var getTotal = function () {
         let sms = parseFloat(getSmsTotal());

@@ -30,6 +30,9 @@
                         <a href="/actions/sms">SMS total</a>
                     </td>
                     <td>R
+
+
+
                         <span class="smsTotalSettings">{{this.totals.sms}}</span>
                     </td>
                 </tr>
@@ -49,14 +52,14 @@
             <form method="POST" action="/settings">
 
                 <label for="exampleEmailInput">Call cost</label>
-                <input class="u-full-width callCostSetting" type="number" placeholder="eg. 2.55" name="callCost" value={{this.settings.call}}>
+                <input class="u-full-width callCostSetting" type="number" placeholder="eg. 2.55" name="callCost" step="0.01" value={{this.settings.call}}>
                 <label for="exampleEmailInput">SMS cost</label>
-                <input class="u-full-width smsCostSetting" type="number" placeholder="eg. 0.65" name="smsCost" value={{this.settings.sms}}>
+                <input class="u-full-width smsCostSetting" type="number" placeholder="eg. 0.65" name="smsCost" step="0.01" value={{this.settings.sms}}>
                 <label for="">Warning level</label>
                 <input class="u-full-width warningLevelSetting " type="number" placeholder="eg. 30.00" class="warningLevel" name="warningLevel"
-                    value={{this.settings.warning}}>
+                    step="0.01" value={{this.settings.warning}}>
                 <label for="">Critical level</label>
-                <input class="u-full-width criticalLevelSetting" type="number" placeholder="eg. 65.00" name="criticalLevel" value={{this.settings.critical}}>
+                <input class="u-full-width criticalLevelSetting" type="number" placeholder="eg. 65.00" name="criticalLevel" step="0.01" value={{this.settings.critical}}>
                 <button class="button-primary updateSettings" type="submit" name="button" value="submit">Update settings</button>
             </form>
 
@@ -64,9 +67,3 @@
         </div>
     </div>
 </div>
-
-{{!--
-<script src="js/calculate-bill.js" charset="utf-8"></script> --}} {{!--
-<script src="js/text-bill.js" charset="utf-8"></script> --}} {{!--
-<script src="js/radio-bill.js" charset="utf-8"></script> --}} {{!--
-<script src="js/settings-bill.js" charset="utf-8"></script> --}}

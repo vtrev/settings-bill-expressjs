@@ -6,9 +6,9 @@ let express = require('express');
 let app = express();
 let fullPage = {
     totals: {
-        call: 0.00,
-        sms: 0.00,
-        billTotal: 0.00
+        call: '0.00',
+        sms: '0.00',
+        billTotal: '0.00'
 
     }
 };
