@@ -20,6 +20,7 @@ module.exports = function () {
 
     function getSms(smsSetting) {
         bill.sms = parseFloat(smsSetting);
+
     }
 
     function getWarning(warnSetting) {
@@ -51,14 +52,14 @@ module.exports = function () {
 
         if (checkedRadioBtn === 'call') {
 
-            (getTotal() < bill.critical) ? callSetTotal += parseFloat(bill.call): console.log('over the line mark Zero!');
+            (getTotal() < bill.critical) ? callSetTotal += parseFloat(bill.call): '';
             tmpLog.cost = bill.call.toFixed(2);
 
         }
 
         if (checkedRadioBtn === 'sms') {
 
-            (getTotal() < bill.critical) ? smsSetTotal += parseFloat(bill.sms): console.log('over the line mark Zero!');
+            (getTotal() < bill.critical) ? smsSetTotal += parseFloat(bill.sms): '';
             tmpLog.cost = bill.sms.toFixed(2);
         }
 
@@ -98,7 +99,8 @@ module.exports = function () {
         getSms: getSmsTotal,
         getCall: getCallTotal,
         bill: bill,
-        log: getLog
+        log: getLog,
+        test: 'test'
 
     }
 
