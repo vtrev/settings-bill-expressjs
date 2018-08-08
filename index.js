@@ -8,7 +8,8 @@ let fullPage = {
     totals: {
         call: '0.00',
         sms: '0.00',
-        billTotal: '0.00'
+        billTotal: '0.00',
+        class: ''
 
     }
 };
@@ -70,6 +71,15 @@ app.post('/settings', function (req, res) {
     settingsBill.setSms(req.body.smsCost);
     settingsBill.setCritical(req.body.criticalLevel);
     settingsBill.setWarning(req.body.warningLevel);
+
+    fullPage.totals.class = '';
+    if (fullPage.totals.billTotal >= settingsBill.getWarning()) {
+        fullPage.totals.class = 'warning';
+    }
+    if (fullPage.totals.billTotal >= settingsBill.getCritical()) {
+        fullPage.totals.class = 'danger';
+    }
+
     let settings = settingsBill.bill;
     fullPage.settings = settings;
     res.redirect('/');
@@ -80,22 +90,20 @@ app.post('/settings', function (req, res) {
 
 app.post('/action', function (req, res) {
     let billType = req.body.billItemType;
-    let totals = {
-        class: ''
-    };
+
     settingsBill.compute(billType);
-    totals.call = settingsBill.getCall();
-    totals.sms = settingsBill.getSms();
-    totals.billTotal = settingsBill.total();
+    fullPage.totals.call = settingsBill.getCall();
+    fullPage.totals.sms = settingsBill.getSms();
+    fullPage.totals.billTotal = settingsBill.total();
 
-    if (totals.billTotal >= settingsBill.getWarning()) {
-        totals.class = 'warning';
+    if (fullPage.totals.billTotal >= settingsBill.getWarning()) {
+        fullPage.totals.class = 'warning';
     }
-    if (totals.billTotal >= settingsBill.getCritical()) {
-        totals.class = 'danger';
+    if (fullPage.totals.billTotal >= settingsBill.getCritical()) {
+        fullPage.totals.class = 'danger';
     }
 
-    fullPage.totals = totals;
+    // fullPage.totals = totals;
     res.redirect('/');
     // res.render('home', fullPage);
 });
