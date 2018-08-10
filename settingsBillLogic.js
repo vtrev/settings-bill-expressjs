@@ -100,7 +100,6 @@ module.exports = function () {
         getCall: getCallTotal,
         bill: bill,
         log: getLog,
-        test: 'test'
 
     }
 
