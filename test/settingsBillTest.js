@@ -1,7 +1,5 @@
 let assert = require('assert');
 let settingsBillModule = require('../settingsBillLogic');
-let chai = require('chai');
-let chaiAssert = chai.assert;
 
 describe('totals functions', function () {
 
