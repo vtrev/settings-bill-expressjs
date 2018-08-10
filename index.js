@@ -1,7 +1,7 @@
 // DECLARATIONS
 let bodyParser = require('body-parser');
-let settingsBillFactory = require('./settingsBillLogic');
-let settingsBill = settingsBillFactory();
+let SettingsBillFactory = require('./settingsBillLogic');
+let settingsBill = SettingsBillFactory();
 let express = require('express');
 let app = express();
 let fullPage = {

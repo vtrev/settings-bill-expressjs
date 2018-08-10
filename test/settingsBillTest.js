@@ -1,11 +1,11 @@
 let assert = require('assert');
-let settingsBillModule = require('../settingsBillLogic');
+let SettingsBillModule = require('../settingsBillLogic');
 
 describe('totals functions', function () {
 
 
     it('Should calculate all computed sms\'s with respect to the set cost', function () {
-        let settingsBill = settingsBillModule();
+        let settingsBill = SettingsBillModule();
         settingsBill.setCall('3');
         settingsBill.setSms('1');
         settingsBill.setCritical('15');
@@ -19,7 +19,7 @@ describe('totals functions', function () {
         assert.equal(settingsBill.getSms(), 7);
     });
     it('Should calculate all computed calls with respect to the set cost', function () {
-        let settingsBill = settingsBillModule();
+        let settingsBill = SettingsBillModule();
         settingsBill.setCall('3');
         settingsBill.setSms('1');
         settingsBill.setCritical('15');
@@ -33,7 +33,7 @@ describe('totals functions', function () {
 
 
     it('Should return the correct total cost of the computed bill with respect to the set costs and quantity of each bill type computed', function () {
-        let settingsBill = settingsBillModule();
+        let settingsBill = SettingsBillModule();
         settingsBill.setCall('3');
         settingsBill.setSms('2');
         settingsBill.setCritical('10');
@@ -47,7 +47,7 @@ describe('totals functions', function () {
 
 describe('critical level function', function () {
     it('Should only compute bill items until the critical level is reached, the total must always be equal to the critical level', function () {
-        let settingsBill = settingsBillModule();
+        let settingsBill = SettingsBillModule();
         settingsBill.setCall('3');
         settingsBill.setSms('2');
         settingsBill.setCritical('15');
@@ -65,7 +65,7 @@ describe('critical level function', function () {
 
 describe('get log function for all billtypes (call and sms\'s)', function () {
     it('should return an array of objects with correct log details for computed sms\'s and calls', function () {
-        let settingsBill = settingsBillModule();
+        let settingsBill = SettingsBillModule();
         settingsBill.setCall('3');
         settingsBill.setSms('2');
         settingsBill.setCritical('15');
@@ -81,7 +81,7 @@ describe('get log function for all billtypes (call and sms\'s)', function () {
 });
 describe('get log function with specific billtype', function () {
     it('should return an object with correct log details for a computed call', function () {
-        let settingsBill = settingsBillModule();
+        let settingsBill = SettingsBillModule();
         settingsBill.setCall('6.50');
         settingsBill.setSms('2');
         settingsBill.setCritical('15');
@@ -94,7 +94,7 @@ describe('get log function with specific billtype', function () {
 
     });
     it('should return an object with correct log details for a computed sms', function () {
-        let settingsBill = settingsBillModule();
+        let settingsBill = SettingsBillModule();
         settingsBill.setCall('6.50');
         settingsBill.setSms('2.50');
         settingsBill.setCritical('15');
